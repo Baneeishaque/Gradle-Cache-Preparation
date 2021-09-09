@@ -13,9 +13,9 @@ variables:
   GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
   repositoryName: Gradle-Cache-Preparation
   # Secret Variables
-  MAPPED_FTP_HOST: $(FTP_HOST)
-  MAPPED_FTP_USER: $(FTP_USER)
-  MAPPED_FTP_PWD: $(FTP_PWD)
+  # MAPPED_FTP_HOST: $(FTP_HOST)
+  # MAPPED_FTP_USER: $(FTP_USER)
+  # MAPPED_FTP_PWD: $(FTP_PWD)
 
 steps:
 - task: Cache@2
@@ -49,15 +49,20 @@ steps:
 - script: 'gradlew --stop'    
   displayName: Stop Gradle Daemon
 
-# Upload Executable Tar File
-- task: FtpUpload@2
-  displayName: 'FTP Upload $(repositoryName) Tar File'
-  inputs:
-    credentialsOption: inputs
-    serverUrl: 'ftp://$(MAPPED_FTP_HOST)'
-    username: $(MAPPED_FTP_USER)
-    password: $(MAPPED_FTP_PWD)
-    # TODO : Add option for file instead of directory
-    rootDirectory: '.'
-    remoteDirectory: '/public_html/files/$(repositoryName)/$(Build.SourceVersion)'
-    filePatterns: 'build/distributions/gradle_cache_preparation-1.0-SNAPSHOT.tar'
+# # Upload Executable Tar File
+# - task: FtpUpload@2
+  # displayName: 'FTP Upload $(repositoryName) Tar File'
+  # inputs:
+    # credentialsOption: inputs
+    # serverUrl: 'ftp://$(MAPPED_FTP_HOST)'
+    # username: $(MAPPED_FTP_USER)
+    # password: $(MAPPED_FTP_PWD)
+    # # TODO : Add option for file instead of directory
+    # rootDirectory: '.'
+    # remoteDirectory: '/public_html/files/$(repositoryName)/$(Build.SourceVersion)'
+    # filePatterns: 'build/distributions/gradle_cache_preparation-1.0-SNAPSHOT.tar'
+
+# TODO : Extract folder, rename gradle_cache_preparation-1.0-SNAPSHOT & gradle_cache_preparation-1.0-SNAPSHOT.bat to Gradle-Cache-Preparation-CLI.bat, then repack as Gradle-Cache-Preparation-CLI.tar (Inner folders too).
+- publish: build/distributions/gradle_cache_preparation-1.0-SNAPSHOT.tar
+  artifact: Gradle-Cache-Preparation-CLI
+
