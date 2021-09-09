@@ -21,5 +21,5 @@ application {
 }
 
 dependencies {
-    implementation("commons-io", "commons-io", "2.8.0")
+    implementation("commons-io", "commons-io", "2.11.0")
 }
