@@ -1,0 +1,6 @@
+interface:
+  display_name: "Gradle Cache Preparation"
+  short_description: "Repo-specific patterns and workflows for Gradle-Cache-Preparation"
+  default_prompt: "Use the Gradle-Cache-Preparation repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
